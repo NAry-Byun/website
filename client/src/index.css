@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 15% 98.5%;
+    --foreground: 60 2% 25%;
+    --card: 85 5% 99%;
+    --card-foreground: 60 2% 25%;
+    --popover: 85 5% 99%;
+    --popover-foreground: 60 2% 25%;
+    --primary: 70 8% 45%;
+    --primary-foreground: 85 5% 99%;
+    --secondary: 75 1% 95%;
+    --secondary-foreground: 65 3% 35%;
+    --muted: 80 1% 94%;
+    --muted-foreground: 65 3% 50%;
+    --accent: 75 12% 55%;
+    --accent-foreground: 85 5% 99%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 85 5% 99%;
+    --border: 75 1% 88%;
+    --input: 75 1% 88%;
+    --ring: 70 8% 45%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 65 1.5% 18%;
+    --foreground: 80 0.8% 95%;
+    --card: 65 1.5% 20%;
+    --card-foreground: 80 0.8% 95%;
+    --popover: 65 1.5% 20%;
+    --popover-foreground: 80 0.8% 95%;
+    --primary: 75 10% 70%;
+    --primary-foreground: 65 1.5% 20%;
+    --secondary: 65 2% 28%;
+    --secondary-foreground: 80 0.8% 95%;
+    --muted: 65 2% 28%;
+    --muted-foreground: 70 4% 65%;
+    --accent: 75 12% 65%;
+    --accent-foreground: 80 0.8% 95%;
+    --destructive: 0 62% 40%;
+    --destructive-foreground: 80 0.8% 95%;
+    --border: 65 2% 30%;
+    --input: 65 2% 30%;
+    --ring: 75 10% 70%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  }
+}

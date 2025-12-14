@@ -1,0 +1,157 @@
+.orders {
+  width: 100%;
+}
+
+.orders h1 {
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.filter-section {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.filter-section input {
+  flex: 1;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.filter-section button {
+  padding: 0.75rem 1.5rem;
+  background-color: #667eea;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.filter-section button:hover {
+  background-color: #5568d3;
+}
+
+.filter-section button:last-child {
+  background-color: #6c757d;
+}
+
+.filter-section button:last-child:hover {
+  background-color: #5a6268;
+}
+
+.loading,
+.error {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.125rem;
+}
+
+.error {
+  color: #dc3545;
+}
+
+.no-orders {
+  text-align: center;
+  color: #666;
+  font-size: 1.125rem;
+  padding: 2rem;
+}
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.order-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.order-header h3 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+}
+
+.order-date {
+  color: #666;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.order-status {
+  padding: 0.5rem 1rem;
+  color: white;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+.order-items {
+  margin-bottom: 1.5rem;
+}
+
+.order-items h4 {
+  margin: 0 0 1rem 0;
+  color: #333;
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  color: #555;
+}
+
+.shipping-address {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+.shipping-address h4 {
+  margin: 0 0 0.75rem 0;
+  color: #333;
+}
+
+.shipping-address p {
+  margin: 0.25rem 0;
+  color: #555;
+  font-size: 0.875rem;
+}
+
+.order-total {
+  text-align: right;
+  padding-top: 1rem;
+  border-top: 2px solid #f0f0f0;
+  font-size: 1.25rem;
+  color: #667eea;
+}
+
+@media (max-width: 768px) {
+  .filter-section {
+    flex-direction: column;
+  }
+
+  .order-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
