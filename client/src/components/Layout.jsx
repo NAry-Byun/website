@@ -1,30 +1,21 @@
-import { Outlet, Link, useNavigate } from 'react-router-dom';
+import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
 import { Leaf, Search, User, ShoppingCart, LogOut } from 'lucide-react';
 import { Button } from './ui/button';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 function Layout() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [cartItemCount, setCartItemCount] = useState(0);
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    updateCartCount();
-    updateUserInfo();
-    const interval = setInterval(() => {
-      updateCartCount();
-      updateUserInfo();
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const updateCartCount = () => {
+  const updateCartCount = useCallback(() => {
     const cart = JSON.parse(localStorage.getItem('cart') || '[]');
     const count = cart.reduce((total, item) => total + item.quantity, 0);
     setCartItemCount(count);
-  };
+  }, []);
 
-  const updateUserInfo = () => {
+  const updateUserInfo = useCallback(() => {
     const userStr = localStorage.getItem('user');
     if (userStr) {
       try {
@@ -35,14 +26,50 @@ function Layout() {
     } else {
       setUser(null);
     }
-  };
+  }, []);
 
-  const handleLogout = () => {
+  useEffect(() => {
+    updateCartCount();
+    updateUserInfo();
+
+    // Custom event listeners for same-tab updates
+    const handleCartUpdate = () => updateCartCount();
+    const handleUserUpdate = () => updateUserInfo();
+
+    window.addEventListener('cart-updated', handleCartUpdate);
+    window.addEventListener('user-updated', handleUserUpdate);
+
+    // Storage event listener for cross-tab updates
+    const handleStorageChange = (e) => {
+      if (e.key === 'cart') {
+        updateCartCount();
+      }
+      if (e.key === 'user' || e.key === 'token') {
+        updateUserInfo();
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('cart-updated', handleCartUpdate);
+      window.removeEventListener('user-updated', handleUserUpdate);
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, [updateCartCount, updateUserInfo]);
+
+  // Update user info when navigating (for logout/login on different pages)
+  useEffect(() => {
+    updateUserInfo();
+  }, [location.pathname, updateUserInfo]);
+
+  const handleLogout = useCallback(() => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     setUser(null);
+    window.dispatchEvent(new Event('user-updated'));
     navigate('/');
-  };
+  }, [navigate]);
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -80,6 +107,11 @@ function Layout() {
                   <span className="text-sm font-medium text-foreground">
                     {user.name}님
                   </span>
+                  {user.user_type === 'admin' && (
+                    <Button variant="ghost" size="sm" onClick={() => navigate('/admin')}>
+                      관리자
+                    </Button>
+                  )}
                   <Button variant="ghost" size="sm" onClick={handleLogout}>
                     <LogOut className="w-4 h-4 mr-1" />
                     로그아웃

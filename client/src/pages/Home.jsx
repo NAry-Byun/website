@@ -141,22 +141,26 @@ function Home() {
             {products.length > 0 ? (
               products.map((product) => (
                 <Card key={product.id} className="group overflow-hidden hover:shadow-lg transition-shadow">
-                  <div className="relative aspect-square overflow-hidden bg-muted">
-                    {product.imageUrl ? (
-                      <img
-                        src={product.imageUrl}
-                        alt={product.name}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-4xl text-muted-foreground">
-                        {product.name?.charAt(0) || 'P'}
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-4 space-y-3">
-                    <h3 className="font-medium text-sm">{product.name}</h3>
-                    <p className="text-primary font-medium">₩{product.price?.toLocaleString()}</p>
+                  <Link to={`/products/${product.id}?category=${product.category}`}>
+                    <div className="relative aspect-square overflow-hidden bg-muted">
+                      {product.image ? (
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-4xl text-muted-foreground">
+                          {product.name?.charAt(0) || 'P'}
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-4 space-y-3">
+                      <h3 className="font-medium text-sm">{product.name}</h3>
+                      <p className="text-primary font-medium">{product.price?.toLocaleString()}원</p>
+                    </div>
+                  </Link>
+                  <div className="px-4 pb-4">
                     <Button
                       onClick={() => addToCart(product)}
                       className="w-full bg-primary hover:bg-primary/90"

@@ -40,8 +40,8 @@ function ProductCard({ product }) {
         className="product-link"
       >
         <div className="product-image">
-          {product.imageUrl ? (
-            <img src={product.imageUrl} alt={product.name} />
+          {product.image ? (
+            <img src={product.image} alt={product.name} loading="lazy" />
           ) : (
             <div className="placeholder-image">
               <span>{product.name?.charAt(0) || 'P'}</span>
@@ -61,11 +61,13 @@ function ProductCard({ product }) {
           </div>
 
           <h3 className="product-name">{product.name}</h3>
-          <p className="product-price">${product.price?.toFixed(2)}</p>
+          <p className="product-price">{product.price?.toLocaleString()}원</p>
 
           {product.description && (
             <p className="product-description">
-              Helps with: {product.description}
+              {product.description.length > 60
+                ? product.description.substring(0, 60) + '...'
+                : product.description}
             </p>
           )}
         </div>
